@@ -1,0 +1,171 @@
+﻿@model ecommerce.Models.HomeViewModel
+
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/hero-bg.jpg') center/cover; height: 550px;">
+            <div class="container h-100 d-flex align-items-center">
+                <div class="text-white">
+                    <h1 class="display-2 fw-bold mb-3">Традиционные<br>рецепты</h1>
+                    <p class="fs-4 mb-4">Откройте новые вкусы с AfroMart</p>
+                    @* FIXED: Referencing the first popular product for the hero button *@
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@Model.PopularProducts.FirstOrDefault()?.Id" class="btn btn-warning btn-lg rounded-pill px-4">
+                        Посмотреть
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <div class="d-flex align-items-center justify-content-center p-3 rounded-4 bg-light shadow-sm">
+                <i class="bi bi-truck fs-1 text-primary me-3"></i>
+                <div class="text-start">
+                    <h6 class="fw-bold mb-0">Быстрая доставка</h6>
+                    <small class="text-muted">По всей России</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex align-items-center justify-content-center p-3 rounded-4 bg-light shadow-sm">
+                <i class="bi bi-shield-check fs-1 text-primary me-3"></i>
+                <div class="text-start">
+                    <h6 class="fw-bold mb-0">Гарантия качества</h6>
+                    <small class="text-muted">100% аутентичные продукты</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex align-items-center justify-content-center p-3 rounded-4 bg-light shadow-sm">
+                <i class="bi bi-headset fs-1 text-primary me-3"></i>
+                <div class="text-start">
+                    <h6 class="fw-bold mb-0">Поддержка 24/7</h6>
+                    <small class="text-muted">Всегда на связи</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold display-5">Категории</h2>
+        <p class="text-muted">Изучите наш ассортимент</p>
+    </div>
+    <div class="row g-4">
+        @foreach (var cat in Model.Categories)
+        {
+            <div class="col-md-3">
+                <a href="#" class="text-decoration-none">
+                    <div class="card border-0 rounded-4 overflow-hidden shadow-sm position-relative">
+                        <img src="@cat.ImageUrl" class="card-img" style="height: 300px; object-fit: cover; filter: brightness(0.7);">
+                        <div class="card-img-overlay d-flex align-items-end p-4">
+                            <h4 class="text-white fw-bold mb-0">@cat.Name</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-5">
+            <div>
+                <h2 class="fw-bold display-5">Популярные товары</h2>
+                <p class="text-muted">Выбор наших покупателей</p>
+            </div>
+            <a asp-controller="Home" asp-action="Shop" class="btn btn-outline-dark rounded-pill px-4">Все товары <i class="bi bi-arrow-right ms-2"></i></a>
+        </div>
+        <div class="row g-4">
+            @foreach (var prod in Model.PopularProducts)
+            {
+                <div class="col-md-3">
+                    <div class="bg-white rounded-4 shadow-sm overflow-hidden border h-100">
+                        <div class="position-relative">
+                            <span class="badge position-absolute top-0 end-0 m-3 px-3 py-2 bg-primary">Хит</span>
+                            @* Link the image to details too *@
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@prod.Id">
+                                <img src="@prod.ImageUrl" class="w-100" style="height: 250px; object-fit: cover;">
+                            </a>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-muted small mb-1">@prod.Category?.Name</p>
+                            <h5 class="fw-bold">@prod.Name</h5>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fs-4 fw-bold text-primary">₽@prod.Price</span>
+                                @* FIXED: Cart Button wrapped in Form *@
+                                <form asp-controller="Cart" asp-action="Add" method="post">
+                                    <input type="hidden" name="productId" value="@prod.Id" />
+                                    <button type="submit" class="btn btn-dark rounded-pill px-3 py-2">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold display-5">Новинки</h2>
+            <p class="text-muted">Только что на полках АфроМарта</p>
+        </div>
+        <div class="row g-4">
+            @foreach (var prod in Model.NewArrivals)
+            {
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+                        <div class="position-relative">
+                            <span class="badge position-absolute top-0 start-0 m-2 bg-success">NEW</span>
+                            <img src="@prod.ImageUrl" class="card-img-top rounded-4" style="height: 180px; object-fit: cover;">
+                        </div>
+                        <div class="card-body px-0">
+                            <h6 class="fw-bold mb-1">@prod.Name</h6>
+                            <p class="text-primary fw-bold mb-3">₽@prod.Price</p>
+                            @* FIXED: Details link with correct ID *@
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@prod.Id" class="btn btn-outline-primary btn-sm rounded-pill w-100">Посмотреть</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="bg-dark py-5 text-white">
+    <div class="container text-center py-4">
+        <h2 class="fw-bold mb-2">Отзывы покупателей</h2>
+        <p class="text-secondary mb-5">Что говорят наши клиенты</p>
+        <div class="row g-4 text-start">
+            @foreach (var review in Model.CustomerReviews)
+            {
+                <div class="col-md-4">
+                    <div class="bg-secondary bg-opacity-10 p-4 rounded-4 h-100">
+                        <div class="text-warning mb-3">
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                <i class="bi bi-star-fill"></i>
+                            }
+                        </div>
+                        <p class="mb-4">"@review.Comment"</p>
+                        <h6 class="fw-bold text-primary mb-0">@review.CustomerName</h6>
+                        <small class="text-muted">@review.Date.ToShortDateString()</small>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

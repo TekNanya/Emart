@@ -1,0 +1,148 @@
+﻿@model ecommerce.Models.ShopViewModel
+@{
+    ViewData["Title"] = "Магазин";
+}
+
+<div class="container py-4">
+    <div class="rounded-4 p-5 mb-5 text-white shadow-sm" style="background-color: #E67E22;">
+        <h1 class="display-5 fw-bold">Магазин</h1>
+        <p class="mb-0">@Model.Products.Count() товаров</p>
+    </div>
+
+    <div class="row">
+        <aside class="col-lg-3">
+            <div class="card border-0 shadow-sm p-4 mb-4 rounded-4 bg-light">
+                <h5 class="fw-bold mb-4">Фильтры</h5>
+
+                <h6 class="fw-bold mb-3 small text-uppercase">Категории</h6>
+                <div class="mb-4">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="catGroup" id="allCat"
+                               @(string.IsNullOrEmpty(Model.SelectedCategorySlug) ? "checked" : "")
+                               onclick="window.location.href='@Url.Action("Shop", "Home")'">
+                        <label class="form-check-label" for="allCat">Все товары</label>
+                    </div>
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="catGroup" id="cat-@cat.Id"
+                                   @(Model.SelectedCategorySlug == cat.Slug ? "checked" : "")
+                                   onclick="window.location.href='@Url.Action("Shop", "Home", new { category = cat.Slug })'">
+                            <label class="form-check-label" for="cat-@cat.Id">@cat.Name</label>
+                        </div>
+                    }
+                </div>
+
+                <form asp-action="Shop" method="get">
+                    @if (!string.IsNullOrEmpty(Model.SelectedCategorySlug))
+                    {
+                        <input type="hidden" name="category" value="@Model.SelectedCategorySlug" />
+                    }
+                    <h6 class="fw-bold mb-3 small text-uppercase">Цена</h6>
+                    <div class="px-2">
+                        <input type="range" name="maxPrice" class="form-range" min="0" max="50000" step="500"
+                               id="priceRange" value="@(Model.MaxPrice ?? 50000)"
+                               oninput="document.getElementById('priceVal').innerText = '₽' + this.value">
+                        <div class="d-flex justify-content-between small text-muted mb-3">
+                            <span>₽0</span>
+                            <span id="priceVal">₽@(Model.MaxPrice ?? 50000)</span>
+                        </div>
+                        <button type="submit" class="btn btn-outline-dark btn-sm w-100 rounded-pill">Применить</button>
+                    </div>
+                </form>
+
+                <a asp-action="Shop" class="btn btn-link btn-sm text-muted w-100 mt-2 text-decoration-none">Сбросить фильтры</a>
+            </div>
+        </aside>
+
+        <main class="col-lg-9">
+            <div class="row mb-4 align-items-center g-3">
+                <div class="col-md-7">
+                    <form asp-action="Shop" method="get">
+                        <div class="input-group bg-white rounded-pill shadow-sm overflow-hidden border">
+                            <span class="input-group-text border-0 bg-white ps-3"><i class="bi bi-search"></i></span>
+                            <input type="text" name="searchTerm" class="form-control border-0 py-2" placeholder="Поиск..." value="@Context.Request.Query["searchTerm"]">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select border shadow-sm rounded-pill py-2">
+                        <option selected>Сначала новые</option>
+                        <option>Цена: по возрастанию</option>
+                        <option>Цена: по убыванию</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden product-card">
+                            <div class="position-relative">
+                                @* FIXED: Wrap image in link to Details *@
+                                <a href="/Product/@product.Id">
+                                    <img src="@product.ImageUrl" class="card-img-top" style="height: 220px; object-fit: cover;" alt="@product.Name">
+                                </a>
+
+                                @if (product.IsFeatured)
+                                {
+                                    <span class="badge position-absolute top-0 end-0 m-3 shadow-sm" style="background-color: #D35400;">Хит</span>
+                                }
+
+                                @if (product.Stock <= 0)
+                                {
+                                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-white bg-opacity-75">
+                                        <span class="fw-bold text-dark text-uppercase">Нет в наличии</span>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="card-body p-4 d-flex flex-column">
+                                <p class="text-muted small mb-1">@product.Category?.Name</p>
+                                @* FIXED: Title links to Details *@
+                                <a href="/Product/@product.Id" class="text-decoration-none text-dark">
+                                    <h6 class="fw-bold mb-3">@product.Name</h6>
+                                </a>
+
+                                <div class="mt-auto d-flex justify-content-between align-items-center">
+                                    <span class="fs-5 fw-bold text-dark">₽@product.Price.ToString("N0")</span>
+
+                                    @* FIXED: Add to Cart Form injected into your circular button *@
+                                    @if (product.Stock > 0)
+                                    {
+                                        <form asp-controller="Cart" asp-action="Add" method="post">
+                                            <input type="hidden" name="productId" value="@product.Id" />
+                                            <input type="hidden" name="quantity" value="1" />
+                                            <button type="submit" class="btn btn-orange rounded-circle p-0 d-flex align-items-center justify-content-center shadow-sm"
+                                                    style="width: 40px; height: 40px; background-color: #E67E22; border: none;">
+                                                <i class="bi bi-cart-plus text-white fs-5"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </main>
+    </div>
+</div>
+
+<style>
+    .btn-orange:hover {
+        background-color: #D35400 !important;
+        transform: scale(1.1);
+        transition: 0.2s;
+    }
+
+    .product-card {
+        transition: transform 0.3s ease, shadow 0.3s ease;
+    }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+</style>

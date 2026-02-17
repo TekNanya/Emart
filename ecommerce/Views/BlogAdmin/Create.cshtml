@@ -1,0 +1,60 @@
+﻿@model ecommerce.Models.BlogPost
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Создать пост";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Новый пост для блога</h2>
+        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill">Отмена</a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="mb-4">
+                        <label asp-for="Title" class="form-label fw-bold small text-uppercase">Заголовок</label>
+                        <input asp-for="Title" class="form-control rounded-3 py-2" placeholder="Например: Секреты идеального Джоллоф риса" />
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Summary" class="form-label fw-bold small text-uppercase">Краткое описание</label>
+                        <input asp-for="Summary" class="form-control rounded-3 py-2" placeholder="Короткий анонс для карточки в списке" />
+                        <span asp-validation-for="Summary" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-4">
+                        <label asp-for="ImageUrl" class="form-label fw-bold small text-uppercase">URL Изображения</label>
+                        <input asp-for="ImageUrl" class="form-control rounded-3 py-2" placeholder="https://..." />
+                        <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-4">
+                    <label asp-for="Content" class="form-label fw-bold small text-uppercase">Текст статьи</label>
+                    <textarea asp-for="Content" class="form-control rounded-3" rows="12" placeholder="Напишите вашу историю или рецепт здесь..."></textarea>
+                    <span asp-validation-for="Content" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-dark btn-lg rounded-pill px-5 fw-bold shadow-sm">
+                    Опубликовать статью
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

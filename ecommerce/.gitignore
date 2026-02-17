@@ -1,0 +1,16 @@
+﻿# Build results
+[Dd]ebug/
+[Rr]elease/
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# Database & Secrets (Very Important)
+*.db
+*.db-journal
+appsettings.Development.json

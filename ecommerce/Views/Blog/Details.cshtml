@@ -1,0 +1,65 @@
+﻿@model ecommerce.Models.BlogPost
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "_Layout"; // Points to Views/Shared/_Layout.cshtml
+   
+}
+
+<article class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none" style="color: #D35400;">Блог</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                </ol>
+            </nav>
+
+            <header class="mb-5">
+                <h1 class="display-4 fw-bold mb-3">@Model.Title</h1>
+                <div class="d-flex align-items-center gap-4 text-muted border-top border-bottom py-3">
+                    <span><i class="bi bi-calendar3 me-1"></i> @Model.CreatedAt.ToString("dd MMMM yyyy")</span>
+                    <span><i class="bi bi-clock me-1"></i> 5 мин на чтение</span>
+                    <span><i class="bi bi-person me-1"></i> AfroMart Team</span>
+                </div>
+            </header>
+
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div class="rounded-4 overflow-hidden shadow mb-5">
+                    <img src="@Model.ImageUrl" class="img-fluid w-100" style="max-height: 500px; object-fit: cover;" alt="@Model.Title">
+                </div>
+            }
+
+            <div class="blog-post-content fs-5 lh-lg text-secondary mb-5">
+                @Html.Raw(Model.Content.Replace("\n", "<br />"))
+            </div>
+
+            <div class="bg-light p-5 rounded-4 text-center border">
+                <h4 class="fw-bold mb-3">Понравилась статья?</h4>
+                <p class="text-muted mb-4">Перейдите в наш каталог, чтобы найти все ингредиенты для этого рецепта!</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a asp-controller="Home" asp-action="Shop" class="btn btn-warning rounded-pill px-4 fw-bold" style="background-color: #D35400; color: white; border: none;">
+                        В магазин
+                    </a>
+                    <a asp-action="Index" class="btn btn-outline-dark rounded-pill px-4">
+                        К списку статей
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<style>
+    .blog-post-content {
+        color: #2d3436;
+        white-space: pre-line; /* Keeps your paragraphs spaced correctly from the admin textarea */
+    }
+
+        .blog-post-content h2, .blog-post-content h3 {
+            color: #2d3436;
+            font-weight: 700;
+            margin-top: 2rem;
+        }
+</style>

@@ -1,0 +1,90 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Вход";
+}
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-5 col-xl-4">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <div class="d-inline-block bg-orange p-3 rounded-circle mb-3">
+                            <i class="bi bi-person-lock text-white fs-1"></i>
+                        </div>
+                        <h2 class="fw-bold">С возвращением!</h2>
+                        <p class="text-muted">Войдите в свой аккаунт AfroMart</p>
+                    </div>
+
+                    <form id="account" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control border-0 bg-light rounded-3" autocomplete="username" placeholder="name@example.com" />
+                            <label asp-for="Input.Email" class="text-muted">Email адрес</label>
+                            <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control border-0 bg-light rounded-3" autocomplete="current-password" placeholder="password" />
+                            <label asp-for="Input.Password" class="text-muted">Пароль</label>
+                            <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" asp-for="Input.RememberMe" />
+                                <label class="form-check-label small text-muted" asp-for="Input.RememberMe">Запомнить меня</label>
+                            </div>
+                            <a id="forgot-password" asp-page="./ForgotPassword" class="small text-orange text-decoration-none fw-bold">Забыли пароль?</a>
+                        </div>
+
+                        <button id="login-submit" type="submit" class="btn btn-orange w-100 py-3 rounded-pill fw-bold text-white shadow-sm mb-3">
+                            Войти в систему
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-4 pt-3 border-top">
+                        <p class="text-muted mb-0">
+                            Нет аккаунта?
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-orange text-decoration-none fw-bold">Зарегистрироваться</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="/" class="text-muted text-decoration-none small">
+                    <i class="bi bi-arrow-left me-1"></i> Вернуться в магазин
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-orange {
+        background-color: #D35400;
+    }
+
+    .text-orange {
+        color: #D35400;
+    }
+
+    .btn-orange {
+        background-color: #D35400;
+        transition: 0.3s;
+    }
+
+        .btn-orange:hover {
+            background-color: #A04000;
+            transform: translateY(-2px);
+        }
+
+    .form-control:focus {
+        background-color: #fff !important;
+        box-shadow: 0 0 0 0.25rem rgba(211, 84, 0, 0.25);
+        border: 1px solid #D35400 !important;
+    }
+</style>

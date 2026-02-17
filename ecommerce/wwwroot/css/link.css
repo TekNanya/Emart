@@ -1,0 +1,312 @@
+﻿/* --- Color Variables --- */
+:root {
+    --afro-brown: #7B3F00; /* Top bar background */
+    --afro-orange: #D35400; /* Logo and hover highlights */
+    --afro-dark: #2D2D2D; /* Primary text color */
+    --afro-light: #f8f9fa; /* Footer and light backgrounds */
+}
+
+/* --- Global Styles --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--afro-dark);
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Main Navbar & Brand --- */
+.navbar {
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+    background-color: white !important;
+}
+
+.navbar-brand {
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+/* The "A" Circle Logo */
+.logo-circle {
+    background-color: var(--afro-orange);
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* --- Navigation Links --- */
+.navbar-nav .nav-link {
+    color: var(--afro-dark) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: var(--afro-orange) !important;
+    }
+
+/* --- Action Icons (Search, Cart, User) --- */
+.d-flex.gap-4 a {
+    color: var(--afro-dark);
+    text-decoration: none;
+    font-size: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+    .d-flex.gap-4 a:hover {
+        color: var(--afro-orange) !important;
+        transform: scale(1.1);
+    }
+
+/* Badge for Cart count */
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: var(--afro-orange);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* --- Top Promo Bar --- */
+.top-bar-link {
+    text-decoration: none;
+    color: white;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+    .top-bar-link:hover {
+        opacity: 1;
+    }
+
+
+
+/* --- Layout Utilities --- */
+.gap-4 {
+    gap: 1.5rem !important; /* Forces spacing between search/cart/user icons */
+}
+
+
+:root {
+    --afro-orange: #D35400;
+    --afro-dark: #2D2D2D;
+}
+
+.btn-primary {
+    background-color: var(--afro-orange) !important;
+    border-color: var(--afro-orange) !important;
+}
+
+.text-primary {
+    color: var(--afro-orange) !important;
+}
+
+/* Modern Card Styles */
+.product-card-modern, .category-card-modern {
+    transition: all 0.3s ease;
+}
+
+    .product-card-modern:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    }
+
+.rounded-4 {
+    border-radius: 1.5rem !important;
+}
+
+/* Carousel indicators matching your orange color */
+.carousel-indicators [data-bs-target] {
+    background-color: var(--afro-orange);
+}
+
+body {
+    /* Push content down so it doesn't hide under the fixed header */
+    padding-top: 120px;
+    margin: 0;
+    overflow-x: hidden; /* Prevents side-scrolling */
+}
+
+/* Ensure the navbar links turn orange on hover like the design */
+.nav-link:hover {
+    color: #D35400 !important;
+}
+
+/* Remove default padding from fluid sections to hit the edges */
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+/* --- Footer Styling Fix --- */
+.footer-section {
+    background-color: saddlebrown;
+    color: white;
+    padding: 60px 0 30px;
+    flex-shrink: 0; /* Prevents footer from shrinking */
+}
+
+.footer-section {
+    /* Matches your dark theme */
+    color: white;
+    padding: 60px 0 30px;
+}
+
+/* Remove those blue bullets and underline */
+.footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .footer-list li {
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+    }
+
+    .footer-list a {
+        color: #a0a0a0 !important; /* Muted grey */
+        text-decoration: none !important;
+        transition: 0.3s;
+    }
+
+        .footer-list a:hover {
+            color: #D35400 !important; /* AfroMart Orange */
+        }
+.social-circle {
+    width: 44px;
+    height: 44px;
+    background: #2b2521;
+    border-radius: 50%;
+    display: inline-flex; /* Use Flexbox */
+    align-items: center; /* Vertical center */
+    justify-content: center; /* Horizontal center */
+    color: white !important;
+    text-decoration: none !important;
+    margin-right: 12px;
+    transition: 0.3s ease;
+}
+
+
+    .social-circle svg {
+        width: 22px;
+        height: 22px;
+    }
+    .social-circle i {
+        line-height: 1; /* Prevents the icon from "sinking" */
+        font-size: 1.3rem; /* Perfect size for RU social icons */
+    }
+
+    /* Authentic VK Blue on hover */
+    .social-circle:hover:has(.bi-vk) {
+        background-color: #0077FF !important;
+    }
+
+    /* Authentic Telegram Blue on hover */
+    .social-circle:hover:has(.bi-telegram) {
+        background-color: #24A1DE !important;
+    }
+/* Fix Contact Icons alignment */
+.footer-icon {
+    color: #D35400;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+
+.footer-bottom-row p,
+.footer-bottom-row span,
+.text-muted {
+    color: #b0b0b0 !important; /* Light grey */
+    font-size: 0.9rem;
+}
+
+/* Custom sizing for RU Payment Logos */
+.footer-payment-img {
+    height: 22px; /* Standard height */
+    width: auto;
+    filter: brightness(0) invert(1); /* Makes them solid white to pop on dark bg */
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+    .footer-payment-img:hover {
+        opacity: 1;
+        filter: none; /* Shows original colors (Green/Blue/Yellow) on hover */
+    }
+
+/* Ensure the bottom bar is aligned */
+.footer-bottom {
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.footer-bottom-row {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.payment-methods img {
+    /* This stops the "squashing" and ensures they look professional */
+    object-fit: contain;
+    filter: none !important; /* Forces original colors to show */
+    opacity: 1 !important;
+}
+
+
+.product-image-card {
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+    .product-image-card:hover {
+        transform: scale(1.02);
+    }
+
+.product-card {
+    /* Fixed: Use box-shadow instead of shadow */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    transform: translateY(-5px);
+}
+
+
+.text-orange {
+    color: #D35400 !important;
+}
+
+.btn-orange {
+    background-color: #D35400;
+    color: white;
+    border: none;
+}
+
+    .btn-orange:hover {
+        background-color: #A04000;
+        color: white;
+    }
+
+/* Fix for the quantity input arrows */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

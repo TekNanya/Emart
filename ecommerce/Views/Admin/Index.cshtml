@@ -1,0 +1,111 @@
+﻿@model AdminDashboardViewModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card p-4 border-0 shadow-sm">
+            <p class="text-muted small mb-1">Выручка</p>
+            <h3 class="fw-bold">₽@Model.TotalRevenue.ToString("N0")</h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-4 border-0 shadow-sm">
+            <p class="text-muted small mb-1">Заказов</p>
+            <h3 class="fw-bold">@Model.OrderCount</h3>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="bg-white p-4 rounded shadow-sm">
+            <h6>Выручка за 7 дней</h6>
+            <canvas id="revenueChart" height="250"></canvas>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="bg-white p-4 rounded shadow-sm">
+            <h6>Заказы по статусу</h6>
+            <canvas id="statusChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white p-4 rounded shadow-sm">
+    <h5 class="fw-bold mb-4">Последние заказы</h5>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead class="text-muted small">
+                <tr>
+                    <th>Номер</th>
+                    <th>Клиент</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.LatestOrders)
+                {
+                    <tr>
+                        <td class="fw-bold">@order.OrderNumber</td>
+                        <td>
+                            <div class="fw-bold">@order.CustomerName</div>
+                            <small class="text-muted">@order.Email</small>
+                        </td>
+                        <td class="fw-bold">₽@order.TotalAmount.ToString("N0")</td>
+                        <td>
+                            <form asp-action="UpdateStatus" method="post">
+                                <input type="hidden" name="orderId" value="@order.Id" />
+                                <select name="newStatus" onchange="this.form.submit()" class="form-select form-select-sm border-0 bg-light fw-bold">
+                                    <option selected disabled>@order.Status</option>
+                                    <option value="New">Новый</option>
+                                    <option value="Processing">В обработке</option>
+                                    <option value="Shipped">Отправлен</option>
+                                    <option value="Completed">Завершен</option>
+                                </select>
+                            </form>
+                        </td>
+                        <td class="text-muted small">@order.OrderDate.ToString("dd.MM HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Revenue Line Chart
+        new Chart(document.getElementById('revenueChart'), {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.ChartLabels)),
+                datasets: [{
+                    label: 'Выручка',
+                    data: @Html.Raw(Json.Serialize(Model.ChartData)),
+                    borderColor: '#E67E22',
+                    tension: 0.3,
+                    fill: true,
+                    backgroundColor: 'rgba(230, 126, 34, 0.1)'
+                }]
+            }
+        });
+
+        // Status Donut Chart
+        new Chart(document.getElementById('statusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Завершен', 'В пути', 'Новый'],
+                datasets: [{
+                    data: [@Model.DeliveredCount, @Model.ProcessingCount, @Model.NewCount],
+                    backgroundColor: ['#2ecc71', '#f1c40f', '#3498db']
+                }]
+            },
+            options: { cutout: '75%' }
+        });
+    </script>
+}

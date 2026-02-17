@@ -1,0 +1,115 @@
+﻿@model ecommerce.Models.ContactViewModel
+@{
+    ViewData["Title"] = "Контакты";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Связаться с <span class="text-orange">нами</span></h1>
+        <p class="text-muted">Есть вопросы по ассортименту или доставке? Мы всегда на связи!</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success border-0 shadow-sm rounded-4 mb-4">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <div class="row g-5">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
+                <form asp-action="Contact" method="post">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Ваше имя</label>
+                            <input asp-for="Name" class="form-control rounded-3 py-2" placeholder="Иван Иванов">
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Email</label>
+                            <input asp-for="Email" class="form-control rounded-3 py-2" placeholder="name@example.com">
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Тема</label>
+                            <input asp-for="Subject" class="form-control rounded-3 py-2" placeholder="Вопрос по заказу">
+                            <span asp-validation-for="Subject" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Сообщение</label>
+                            <textarea asp-for="Message" class="form-control rounded-3" rows="5" placeholder="Ваше сообщение..."></textarea>
+                            <span asp-validation-for="Message" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-orange w-100 rounded-pill py-3 fw-bold">
+                                Отправить сообщение
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="ps-lg-4">
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-4">Наши контакты</h4>
+
+                    <div class="d-flex mb-4 gap-3">
+                        <div class="bg-light rounded-circle p-3 shadow-sm d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="bi bi-geo-alt text-orange fs-4"></i>
+                        </div>
+                        <div>
+                            <p class="mb-0 fw-bold">Адрес</p>
+                            <p class="text-muted">г. Москва, ул. Примерная, д. 12</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-4 gap-3">
+                        <div class="bg-light rounded-circle p-3 shadow-sm d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="bi bi-telephone text-orange fs-4"></i>
+                        </div>
+                        <div>
+                            <p class="mb-0 fw-bold">Телефон</p>
+                            <p class="text-muted">+7 (999) 000-00-00</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-4 gap-3">
+                        <div class="bg-light rounded-circle p-3 shadow-sm d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="bi bi-envelope text-orange fs-4"></i>
+                        </div>
+                        <div>
+                            <p class="mb-0 fw-bold">Email</p>
+                            <p class="text-muted">info@afromart.ru</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-4 overflow-hidden shadow-sm border" style="height: 250px;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1122.3456789!2d37.6176!3d55.7558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTXCsDQ1JzIwLjgiTiAzN8KwMzcnMDMuNCJF!5e0!3m2!1sru!2sru!4v1234567890"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-orange {
+        color: #E67E22 !important;
+    }
+
+    .btn-orange {
+        background-color: #E67E22;
+        color: white;
+        border: none;
+    }
+
+        .btn-orange:hover {
+            background-color: #D35400;
+            color: white;
+        }
+</style>

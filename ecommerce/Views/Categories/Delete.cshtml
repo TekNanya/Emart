@@ -1,0 +1,20 @@
+﻿@model ecommerce.Models.Category
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container py-5 text-center" style="max-width: 500px;">
+    <div class="bg-white p-5 rounded shadow-sm border">
+        <i class="bi bi-exclamation-triangle text-danger display-1"></i>
+        <h3 class="fw-bold mt-3">Удалить категорию?</h3>
+        <p class="text-muted">Вы уверены, что хотите удалить <strong>@Model.Name</strong>? Это действие нельзя отменить.</p>
+
+        <form asp-action="Delete" method="post" class="mt-4">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-flex justify-content-center gap-3">
+                <a asp-action="Index" class="btn btn-light border px-4">Отмена</a>
+                <button type="submit" class="btn btn-danger px-4">Да, удалить</button>
+            </div>
+        </form>
+    </div>
+</div>

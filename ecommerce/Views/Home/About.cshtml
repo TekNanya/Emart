@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "О нас";
+}
+
+<div class="container py-5">
+    <div class="row align-items-center mb-5 g-5">
+        <div class="col-lg-6">
+            <h1 class="display-4 fw-bold mb-4">Добро пожаловать в <span class="text-orange">AfroMart</span></h1>
+            <p class="lead text-secondary mb-4">
+                Мы — ваш проводник в мир аутентичных африканских вкусов и традиций.
+                Наш магазин был создан с одной целью: сделать качественные африканские продукты
+                доступными для каждого жителя России.
+            </p>
+            <div class="d-flex gap-3">
+                <a asp-action="Shop" class="btn btn-orange px-4 py-2 rounded-pill fw-bold">В магазин</a>
+                <a href="#mission" class="btn btn-outline-dark px-4 py-2 rounded-pill fw-bold">Наша миссия</a>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="rounded-4 overflow-hidden shadow-lg">
+                <img src="/images/about-hero.jpg" class="img-fluid" alt="AfroMart Shop" onerror="this.src='https://placehold.co/600x400?text=AfroMart+Kitchen'">
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 py-5" id="mission">
+        <div class="col-md-4">
+            <div class="text-center p-4 rounded-4 bg-light h-100 border shadow-sm">
+                <div class="fs-1 text-orange mb-3"><i class="bi bi-shield-check"></i></div>
+                <h4 class="fw-bold">Качество</h4>
+                <p class="text-muted">Мы работаем только с проверенными поставщиками, чтобы гарантировать свежесть каждой специи.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-center p-4 rounded-4 bg-light h-100 border shadow-sm">
+                <div class="fs-1 text-orange mb-3"><i class="bi bi-truck"></i></div>
+                <h4 class="fw-bold">Доставка</h4>
+                <p class="text-muted">Быстрая и надежная доставка по всей территории РФ с заботой о сохранности продуктов.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-center p-4 rounded-4 bg-light h-100 border shadow-sm">
+                <div class="fs-1 text-orange mb-3"><i class="bi bi-heart"></i></div>
+                <h4 class="fw-bold">Аутентичность</h4>
+                <p class="text-muted">Наши товары приносят настоящий вкус Африки прямо на вашу кухню.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center py-5">
+        <div class="col-lg-8 text-center">
+            <h2 class="fw-bold mb-4">Наша история</h2>
+            <p class="text-secondary fs-5">
+                AfroMart начался как небольшой семейный проект. Мы столкнулись с тем, как трудно найти
+                настоящий острый перец и традиционные крупы в Москве. Сегодня мы расширились до полноценного
+                онлайн-магазина, который объединяет любителей экзотической кухни по всей стране.
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-orange {
+        color: #E67E22 !important;
+    }
+
+    .btn-orange {
+        background-color: #E67E22;
+        color: white;
+        border: none;
+    }
+
+        .btn-orange:hover {
+            background-color: #D35400;
+            color: white;
+        }
+</style>

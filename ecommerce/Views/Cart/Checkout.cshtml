@@ -1,0 +1,69 @@
+﻿@model ecommerce.Models.CheckoutViewModel
+
+<div class="container py-5">
+    <form asp-action="ConfirmOrder" method="post">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm p-4 rounded-4 mb-4">
+                    <h5 class="fw-bold mb-4">Данные получателя</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Имя</label>
+                            <input asp-for="FirstName" class="form-control rounded-3" placeholder="Иван" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Фамилия</label>
+                            <input asp-for="LastName" class="form-control rounded-3" placeholder="Иванов" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Адрес доставки</label>
+                            <input asp-for="Address" class="form-control rounded-3" placeholder="Улица, дом, квартира" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label small fw-bold">Email</label>
+                            <input asp-for="CustomerEmail" type="email" class="form-control rounded-3" placeholder="ivan@example.com" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm p-4 rounded-4 mb-4">
+                    <h5 class="fw-bold mb-4">Способ оплаты</h5>
+                    <div class="form-check border p-3 mb-2 rounded-3">
+                        <input class="form-check-input ms-0 me-3" type="radio" asp-for="PaymentMethod" value="Card" id="card" checked>
+                        <label class="form-check-label fw-bold" for="card">Банковская карта</label>
+                    </div>
+                    <div class="form-check border p-3 mb-2 rounded-3">
+                        <input class="form-check-input ms-0 me-3" type="radio" asp-for="PaymentMethod" value="COD" id="cod">
+                        <label class="form-check-label fw-bold" for="cod">Оплата при получении</label>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm p-4 rounded-4">
+                    <h5 class="fw-bold mb-3">Комментарий</h5>
+                    <textarea asp-for="Comment" class="form-control border-light bg-light rounded-3" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm p-4 rounded-4 sticky-top" style="top: 20px;">
+                    <h5 class="fw-bold mb-4">Ваш заказ</h5>
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>@item.ProductName x @item.Quantity</span>
+                            <span class="fw-bold">₽@item.Total.ToString("N0")</span>
+                        </div>
+                    }
+                    <hr>
+                    <div class="d-flex justify-content-between h4 fw-bold">
+                        <span>Итого</span>
+                        <span>₽@((Model.Subtotal + 500).ToString("N0"))</span>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100 rounded-pill py-3 mt-4 fw-bold text-white" style="background-color: #E67E22;">
+                        Подтвердить заказ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
