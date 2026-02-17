@@ -24,7 +24,7 @@ This project was developed as a **final-year academic project** and also serves 
 
 The landing page presents high-quality banners and featured categories to help users easily discover authentic Afro-Caribbean products.
 
-![Home Page](screenshots/home_page.png)
+![Home Page](ecommerce/screenshots/home_page.png)
 
 ---
 
@@ -34,7 +34,7 @@ A clean and responsive product grid with a **custom icon-based “Add to Cart”
 
 > AJAX is used to allow users to add products to the cart without reloading the page.
 
-![Shop Page](screenshots/shop_page.png)
+![Shop Page](ecommerce/screenshots/shop_page.png)
 
 ---
 
@@ -42,14 +42,17 @@ A clean and responsive product grid with a **custom icon-based “Add to Cart”
 
 A simple and intuitive interface for managing product quantities and reviewing totals before checkout.
 
-![Cart Page](screenshots/cart_page.png)
+
+![Cart Page](ecommerce/screenshots/cart_page.png)
 
 ---
 ### 🛠️ Admin Dashboard
 
 The admin panel allows authorized staff to manage products and monitor customer orders through a dedicated management interface.
 
-![Admin Dashboard](screenshots/admin_dashboard.png)
+
+![Admin Dashboard](ecommerce/screenshots/admin_dashboard.png)
+
 
 ---
 ## 🛠️ Key Technical Features
